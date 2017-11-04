@@ -1,7 +1,7 @@
 package com.bcd.model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -9,9 +9,9 @@ public class Project {
     private final StringProperty number = new SimpleStringProperty();
     private final StringProperty name = new SimpleStringProperty();    
     private final StringProperty folder = new SimpleStringProperty();    
-    private final DoubleProperty id = new SimpleDoubleProperty();
+    private final StringProperty id = new SimpleStringProperty();
     
-    public Project(double id, String number, String name, String folder) {
+    public Project(String id, String number, String name, String folder) {
         setId(id);
         setNumber(number);
         setName(name);
@@ -57,15 +57,15 @@ public class Project {
     }
 
 
-    public double getId() {
+    public String getId() {
         return id.get();
     }
 
-    public void setId(double value) {
+    public void setId(String value) {
         id.set(value);
     }
 
-    public DoubleProperty idProperty() {
+    public StringProperty idProperty() {
         return id;
     }
 

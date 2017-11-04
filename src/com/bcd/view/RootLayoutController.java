@@ -22,18 +22,17 @@ public class RootLayoutController {
     private void choiceProject(){        
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/bcd/view/Project.fxml"));            
+            loader.setLocation(MainApp.class.getResource("/com/bcd/view/SearchProject.fxml"));            
             projectLayout = (AnchorPane) loader.load();     
-            ProjectController controller = loader.getController();
-            rootLayout.setCenter(projectLayout);
-
-            
+            SearchProjectController controller = loader.getController();
+            controller.setRootLayout(this);
+            rootLayout.setCenter(projectLayout);            
         } catch (Exception e) {
             Log.msg(1, "choiceProject | " + e.getMessage());
         }
     }
     @FXML
-    private void closeProject(){
+    public void closeProject(){
         rootLayout.getChildren().remove(projectLayout);
     }
 /*
