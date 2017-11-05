@@ -34,8 +34,25 @@ public class ProjectManager {
         return ProjectManager.listProject;
     }
     
-    public static Project getProjectById(double id){
-        return null;
+    public static Project getProjectById(String id){
+        Project tmpProject = null;
+        try{
+            PreparedStatement pstmt = Sql.Conn().prepareStatement("SELECT * FROM prj_project WHERE id = ?");
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                tmpProject = new Project(
+                    rs.getString("id"),
+                    rs.getString("number"),
+                    rs.getString("name"),
+                    rs.getString("folder"));
+            }
+        }
+        catch(SQLException e){
+            Log.msg(1, "Erreur SQL getProjectById " + e.getMessage());
+        }
+        
+        return tmpProject;
     }
 
     private static void addProjectToList(ResultSet rs){ 

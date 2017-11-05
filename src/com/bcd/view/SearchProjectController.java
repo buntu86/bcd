@@ -39,7 +39,6 @@ public class SearchProjectController implements Initializable {
             {
                 id=nv.getId();
                 afficher.setDisable(false);
-                Log.msg(0, "id::" + nv.getId());
             }
             else
                 afficher.setDisable(true);
@@ -49,7 +48,8 @@ public class SearchProjectController implements Initializable {
     @FXML
     private void affiche(){
         rootLayout.closeProject();
-        Log.msg(0, "AFFICHE PROJET : " + id);
+        rootLayout.setIdProjectOpened(id);
+        rootLayout.openProject();
     }
     
     @FXML

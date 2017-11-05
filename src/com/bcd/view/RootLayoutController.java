@@ -2,6 +2,7 @@ package com.bcd.view;
 
 import javafx.scene.layout.BorderPane;
 import com.bcd.MainApp;
+import com.bcd.model.Project;
 import com.bcd.utils.Log;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,8 @@ public class RootLayoutController {
 
     private MainApp mainApp;
     private BorderPane rootLayout;
-    private AnchorPane projectLayout;
+    private AnchorPane projectLayout, searchProjectLayout;
+    private String idProjectOpened = "";
         
     @FXML
     private void handleExit(){
@@ -19,22 +21,57 @@ public class RootLayoutController {
     }
     
     @FXML
-    private void choiceProject(){        
+    private void searchProject(){        
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/bcd/view/SearchProject.fxml"));            
-            projectLayout = (AnchorPane) loader.load();     
+            searchProjectLayout = (AnchorPane) loader.load();     
             SearchProjectController controller = loader.getController();
             controller.setRootLayout(this);
-            rootLayout.setCenter(projectLayout);            
+            rootLayout.setCenter(searchProjectLayout);            
         } catch (Exception e) {
-            Log.msg(1, "choiceProject | " + e.getMessage());
+            Log.msg(1, "searchProject | " + e.getMessage());
         }
+    }
+    public void openProject() {
+        if(idProjectOpened!="")
+        {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("/com/bcd/view/Project.fxml"));            
+                projectLayout = (AnchorPane) loader.load();     
+                ProjectController controller = loader.getController();
+                controller.setRootLayout(this);
+                controller.setIdProjet(this.idProjectOpened);
+                rootLayout.setCenter(projectLayout);            
+            } catch (Exception e) {
+                Log.msg(1, "openProject | " + e.getMessage());
+            }
+        }
+        else
+            Log.msg(1, "openProject | Erreur idProjectOpened ne peux être null.");
     }
     @FXML
     public void closeProject(){
+        rootLayout.getChildren().remove(searchProjectLayout);
         rootLayout.getChildren().remove(projectLayout);
     }
+
+    public void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+        searchProject();
+    }
+
+    public void setMainApp(MainApp aThis) {
+        this.mainApp = aThis;
+    }
+
+    public void setIdProjectOpened(String id) {
+        this.idProjectOpened = id;
+    }
+}
+
+
 /*
     @FXML
     private void handleOpenAgenda(){
@@ -66,12 +103,3 @@ public class RootLayoutController {
     }    
     */
     
-    public void setRootLayout(BorderPane rootLayout) {
-        this.rootLayout = rootLayout;
-        choiceProject();
-    }
-
-    public void setMainApp(MainApp aThis) {
-        this.mainApp = aThis;
-    }
-}

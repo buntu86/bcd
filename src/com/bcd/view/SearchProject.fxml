@@ -16,7 +16,7 @@
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </VBox.margin>
             </TextField>
-            <ListView fx:id="listView" maxHeight="1000.0" minHeight="200.0" prefHeight="600.0" prefWidth="200.0">
+            <ListView fx:id="listView" maxHeight="1000.0" minHeight="200.0" prefHeight="600.0" prefWidth="200.0" onKeyPressed="#handleKeyPressed">
                <VBox.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" />
                </VBox.margin>

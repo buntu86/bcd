@@ -18,6 +18,13 @@ public class Project {
         setFolder(folder);
     }
     
+    public Project(Project pr){
+        setId(pr.getId());
+        setNumber(pr.getNumber());
+        setName(pr.getName());
+        setFolder(pr.getFolder());        
+    }
+    
     public String getNumber() {
         return number.get();
     }
