@@ -18,6 +18,8 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -26,7 +28,20 @@ public class ProjectController implements Initializable {
     @FXML
     private TreeView<Project_TreeViewItems> treeView;
     @FXML
-    private ListView<Position> listView;
+    private TableView<Position> tableView;
+    @FXML
+    private TableColumn<Position, String> num;
+    @FXML
+    private TableColumn<Position, Integer> diam;
+    @FXML
+    private TableColumn<Position, Integer> count;
+    @FXML
+    private TableColumn<Position, String> var1;    
+    @FXML
+    private TableColumn<Position, String> var2;    
+    @FXML
+    private TableColumn<Position, String> var3;    
+    
     private RootLayoutController rootLayout;
     private ObservableList<Division> listDivision = FXCollections.observableArrayList();
     private TreeItem<Project_TreeViewItems> root = null;
@@ -42,7 +57,7 @@ public class ProjectController implements Initializable {
     }
 
     void setIdProjet(String id) {
-        root = new TreeItem<>(new Project_TreeViewItems("0", ProjectManager.getProjectById(id).toString(), 0));        
+        root = new TreeItem<>(new Project_TreeViewItems("0", ProjectManager.getProjectById(id).toString(), 0));
         treeView.setRoot(root);
         
         for(Division division : DivisionManager.getListDivisionByIdProject(id)){
@@ -66,8 +81,13 @@ public class ProjectController implements Initializable {
                 if(nv.getValue().getType()==2)
                 {
                     idLayoutSelected=nv.getValue().getId();
-                    if(idLayoutSelected!="")
-                        listView.setItems(PositionManager.getListPositionByIdLayout(idLayoutSelected));
+                    if(idLayoutSelected!=""){
+                        tableView.setItems(PositionManager.trisList(PositionManager.getListPositionByIdLayout(idLayoutSelected)));
+                        num.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+                        diam.setCellValueFactory(cellData -> cellData.getValue().diamProperty().asObject());
+                        count.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+                        
+                    }
                 }
             });
         }

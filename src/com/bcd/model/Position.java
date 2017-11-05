@@ -356,15 +356,10 @@ public class Position {
     public int getCount() {
         return count.get();
     }
-
     public void setCount(int value) {
         count.set(value);
     }
-
     public IntegerProperty countProperty() {
         return count;
     }
-
-
-    
 }

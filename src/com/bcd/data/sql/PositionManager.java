@@ -17,7 +17,6 @@ public class PositionManager {
         try{
             PreparedStatement pstmt = Sql.Conn().prepareStatement("SELECT * FROM rbr_position WHERE idLayout=? ORDER BY number ASC");
             pstmt.setString(1, idLayout);
-            Log.msg(0, pstmt.toString());
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
 /*
@@ -55,8 +54,41 @@ public class PositionManager {
             Log.msg(1, "Erreur SQL getListLayoutByIdDivision " + e.getMessage());
         }        
         
-        Log.msg(0, "listPosition number " + listPosition.size());
+
         
         return listPosition;
-    }            
+    }
+    
+    public static ObservableList<Position> trisList(ObservableList<Position> listIn){
+        ObservableList<Position> listOut = null;
+        String lastNumber = "";
+        int count = 0;
+        
+        for(Position pos : listIn){
+            if(lastNumber.equals(pos.getNumber())){
+                count = pos.getCount() + count;
+                Log.msg(0, "count2 " + count);
+            }
+            else
+            {
+                count=0;
+                if(!lastNumber.equals(""))
+                {
+                    pos.setCount(pos.getCount() + count);
+                    Log.msg(0, "count3 " + count);
+                }
+                else
+                {
+                    pos.setCount(pos.getCount() + count);
+                    Log.msg(0, "count1 " + count);
+                }
+            }
+            lastNumber=pos.getNumber();
+            Log.msg(0, "++count++ " + count);
+        }
+
+        //Log.msg(0, "listPosition number " + listOut.size());
+        
+        return listOut;
+    };
 }
