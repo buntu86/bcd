@@ -36,7 +36,7 @@ public class ProjectController implements Initializable {
     @FXML
     private TableColumn<Position, Integer> count;
     @FXML
-    private TableColumn<Position, String> var1;    
+    private TableColumn<Position, Integer> var1;    
     @FXML
     private TableColumn<Position, String> var2;    
     @FXML
@@ -86,7 +86,8 @@ public class ProjectController implements Initializable {
                         num.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
                         diam.setCellValueFactory(cellData -> cellData.getValue().diamProperty().asObject());
                         count.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
-                        
+                        var1.setCellValueFactory(cellData -> cellData.getValue().flagProperty().asObject());
+                        Log.msg(0, idLayoutSelected);
                     }
                 }
             });

@@ -60,35 +60,30 @@ public class PositionManager {
     }
     
     public static ObservableList<Position> trisList(ObservableList<Position> listIn){
-        ObservableList<Position> listOut = null;
-        String lastNumber = "";
-        int count = 0;
+        ObservableList<Position> listOut = FXCollections.observableArrayList();
+        Position tempPos=null;
         
         for(Position pos : listIn){
-            if(lastNumber.equals(pos.getNumber())){
-                count = pos.getCount() + count;
-                Log.msg(0, "count2 " + count);
-            }
-            else
+            if(pos.getFlag()==1)
             {
-                count=0;
-                if(!lastNumber.equals(""))
+                if(tempPos==null)
                 {
-                    pos.setCount(pos.getCount() + count);
-                    Log.msg(0, "count3 " + count);
+                    tempPos = pos;
+                }
+                else if(tempPos.getNumber().equals(pos.getNumber())){
+                    tempPos.setCount(pos.getCount()+pos.getAddCount());
                 }
                 else
                 {
-                    pos.setCount(pos.getCount() + count);
-                    Log.msg(0, "count1 " + count);
+                    listOut.add(tempPos);
+                    tempPos = pos;
                 }
             }
-            lastNumber=pos.getNumber();
-            Log.msg(0, "++count++ " + count);
         }
-
-        //Log.msg(0, "listPosition number " + listOut.size());
+        listOut.add(tempPos);
         
+        Log.msg(0, "listIn size " + listIn.size());
+        Log.msg(0, "listOut size " + listIn.size());
         return listOut;
     };
 }

@@ -18,7 +18,7 @@
                       <TableColumn fx:id="num" prefWidth="75.0" text="Numéro" />
                       <TableColumn fx:id="count" prefWidth="75.0" text="Nombre" />
                         <TableColumn fx:id="diam" prefWidth="75.0" text="Diamètre" />
-                        <TableColumn prefWidth="75.0" text="var1" />
+                        <TableColumn fx:id="var1" prefWidth="75.0" text="var1" />
                         <TableColumn prefWidth="75.0" text="var2" />
                         <TableColumn prefWidth="75.0" text="var3" />
                     </columns>
